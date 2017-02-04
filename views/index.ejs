@@ -1,0 +1,44 @@
+
+<% include _header %>
+
+
+<div class="container bg-info">
+	<h3>Freshman Year</h3>
+	<div class="col-xs-10 col-md-10 bg-success">
+	<h4>Spring Semester</h4>
+	<table class="table table-bordered">
+		<tr>
+			<th>Major Courses</th>
+			<th>General Courses</th>
+			<th>Basic Courses</th>
+			<th>Elective Courses</th>
+			<th>Activity Units</th>
+			<th>Other</th>
+		</tr>
+		<% for(var i = 0; i < 3; i++) {%>
+			<tr>
+				<% for(var j = 0; j < 6; j++) {%>
+					<td><%= entries[j] %><button type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button></td>
+				<%}%>
+			</tr>
+		<%}%>
+	</table>
+	</div>
+	<div class="col-xs-2 col-md-2">
+		<h4>Add a Course</h4>
+		<h5>Department</h5>
+		<select class="form-control">
+		  <option>Department</option>
+		  <option>2</option>
+		  <option>3</option>
+		  <option>4</option>
+		  <option>5</option>
+		</select>
+		<input type="text" class="form-control" placeholder="Keyword">
+		<button type="button" class="btn btn-primary">Add</button>
+	</div
+
+</div>
+
+
+<% include _footer%>
