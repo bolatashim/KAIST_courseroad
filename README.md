@@ -1,7 +1,7 @@
 # kaistcourseroad
 
 
-Download and start "mongo" app. Make sure it runs on port 27017 (seems like that is the default)
+Make sure mongo it runs on port 27017 (seems like that is the default)
 
 Locate the project directory and type in
 
