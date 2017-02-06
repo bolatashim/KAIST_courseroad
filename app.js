@@ -14,7 +14,7 @@ var setUpPassport = require("./setUpPassport");
 var routes = require("./routes");
 
 var app = express();
-mongoose.connect("mongodb://localhost:27017/test");
+mongoose.connect("mongodb://localhost:27017/kaistcr");
 setUpPassport();
 
 app.set("port", process.env.PORT || 3000); // setting the port
