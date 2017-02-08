@@ -9,12 +9,18 @@ var session = require("express-session");
 var flash = require("connect-flash");
 var passport = require("passport");
 
-
-var setUpPassport = require("./setUpPassport");
-var routes = require("./routes");
+/* organize routes into a folder */
+var setUpPassport = require("./routes/setUpPassport");
+var index = require("./routes/index");
+var courses = require("./routes/courses");
+var courseroads = require("./routes/courseroads");
 
 var app = express();
 mongoose.connect("mongodb://localhost:27017/kaistcr");
+
+/* Needed to avoid a warning related to promises */
+mongoose.Promise = global.Promise;
+
 setUpPassport();
 
 app.set("port", process.env.PORT || 3000); // setting the port
@@ -38,7 +44,9 @@ app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use(routes);
+app.use('/', index);
+app.use('/courses', courses);
+app.use('/courseroads', courseroads);
 
 app.listen(app.get("port"), function() {
   console.log("Start on port " + app.get("port"));
