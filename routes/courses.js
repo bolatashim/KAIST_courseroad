@@ -11,7 +11,7 @@ router.get("/", function(req, res, next) {
   next();
 });
 
-/* Making and adding course object to my database. To work with the requests sent through */
+/* Making and adding course object to my database. To work with the requests sent through Java*/
 
 router.post("/add", function(req, res) {
 	console.log(req.body.title);
