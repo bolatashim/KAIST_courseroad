@@ -8,10 +8,14 @@ nodemon app.js
 
 Go to localhost:3000
 
+You also have to run DatabasePopulateJava to have all of the courses in the database
+
+
 
 
 
 SAMPLE COURSE CODES TO PLAY WITH:
+
 CS101
 CS109
 CS202
