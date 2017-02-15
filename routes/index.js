@@ -2,6 +2,8 @@ var express = require("express");
 var passport = require("passport");
 
 var User = require("../models/user");
+var CourseRoad = require("../models/courseroad");
+var Course = require("../models/course");
 var router = express.Router();
 
 
@@ -9,10 +11,29 @@ function ensureAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {
     next();
   } else {
-    req.flash("info", "You must be logged in to see this page.");
+    req.flash("info", "You must be logged in.");
     res.redirect("/login");
   }
 }
+
+/*
+function getTitles(objectids) {
+  var titles = [];
+  for (var i = 0; i < objectids.length; i++) {
+    Course.findById(objectids[i].toString(), function(err, course) {
+      if (err) throw err;
+      titles.push(course.code);
+
+      console.log(course.code + " " + titles.length);
+      if (i == objectids.length) {
+        return titles;
+      }
+    });
+  }
+  return titles;
+}
+*/
+
 
 router.use(function(req, res, next) {
   res.locals.currentUser = req.user;
@@ -23,13 +44,83 @@ router.use(function(req, res, next) {
 
 
 router.get("/", function(req, res, next) {
-  User.find()
-  .sort({ createdAt: "descending" })
-  .exec(function(err, users) {
-    if (err) { return next(err); }
-    res.render("index", { users: users, entries: ["[CS206] Data Structure", "[CS206] Data Structure", "[CS206] Data Structure", "[CS206] Data Structure", "Fifteen", "Sixteen", "One", "Two", "Three", "Four", "Five", "Six"] });
-  });
+  if (req.user) {
+
+    CourseRoad.findById(req.user.crId, function(err, cr) {
+      if (err) throw err;
+      
+
+      /*
+
+      //Could not manage to make the code below work ㅠㅠㅠㅠ
+
+      var mycourses = [];
+
+      for (var i = 0; i < cr.freshOne.length; i++) {
+        Course.findById(cr.freshOne[i], function(err, course) {
+          if (err) throw err;
+          //console.log(course.code.toString());
+          mycourses[mycourses.length] = course.code;
+          mycourses[mycourses.length] = course.type;
+          console.log(cr.freshOne.length);
+
+        });
+      }
+        res.render("index", { freshOne: mycourses });
+
+      */
+
+      if (!cr) { //if a courseroad not found
+
+        req.flash("error", "Unable to find a courseroad for " + req.user.username);
+        res.redirect("/");
+
+      } else {
+
+        res.render("index", {
+      
+          freshOne: cr.freshOne,
+          freshTwo: cr.freshTwo,
+          sophOne: cr.sophOne,
+          sophTwo: cr.sophTwo,
+          junOne: cr.junOne,
+          junTwo: cr.junTwo,
+          senOne: cr.senOne,
+          senTwo: cr.senTwo,
+          extraOne: cr.extraOne,
+          extraTwo: cr.extraTwo,
+          extraThree: cr.extraThree,
+          extraFour: cr.extraFour
+
+        }); 
+
+      }
+
+    });
+
+  } else { // No user is logged in, so just show an empty courseroad
+        
+        res.render("index", {
+
+          freshOne: [""],
+          freshTwo: [""],
+          sophOne: [""],
+          sophTwo: [""],
+          sophOne: [""],
+          junTwo: [""],
+          junOne: [""],
+          senTwo: [""],
+          senOne: [""],
+          extraOne: [""],
+          extraTwo: [""],
+          extraThree: [""],
+          extraFour: [""]
+
+        });
+  }
+
 });
+
 
 router.get("/login", function(req, res) {
   res.render("login");
@@ -63,20 +154,25 @@ router.post("/signup", function(req, res, next) {
       return res.redirect("/signup");
     }
 
+    //Whenever a user is created a corresponding courseroad Object is created that we soon would use to add courses to
+    var newCourseRoad = new CourseRoad({});
+    newCourseRoad.save();
+
+    //We save the id of our brand new courseroad in the crId field of our user
     var newUser = new User({
       username: username,
-      password: password
+      password: password,
+      crId: newCourseRoad.getid()
     });
     newUser.save(next);
 
   });
+
 }, passport.authenticate("login", {
   successRedirect: "/",
   failureRedirect: "/signup",
   failureFlash: true
 }));
-
-
 
 router.get("/users/:username", function(req, res, next) {
   User.findOne({ username: req.params.username }, function(err, user) {
@@ -85,6 +181,7 @@ router.get("/users/:username", function(req, res, next) {
     res.render("profile", { user: user });
   });
 });
+
 
 router.get("/edit", ensureAuthenticated, function(req, res) {
   res.render("edit");
@@ -103,5 +200,113 @@ router.post("/edit", ensureAuthenticated, function(req, res, next) {
   });
 });
 
+
+router.post("/testForm", ensureAuthenticated, function(req, res, next) {
+  
+  /* First we find the courseroad object of the user so we could add classes to that specific courseroad */
+  CourseRoad.findById(req.user.crId.toString(), function(err, cr) {
+    if (err) throw err;
+    if (!cr) { /* if cr not found, say that to the user */
+      req.flash("error", "Unable to find a courseroad for " + req.user.username);
+      res.redirect("/");
+    } else { /* found the cr can go on to check the course */
+
+      /* Once a post req received, I try to find the particular course in my database */
+      Course.findOne({"year": req.body.year.toString(), "semester": req.body.sem.toString(), "code": req.body.code.toString()}, function(err, course) {
+        if (err) {
+          
+          console.log("Oops! an error in finding the course portion");
+          res.redirect("/");
+          return;
+
+        } else if (!course) { //if the course is not found tell me about that
+          
+          console.log("Course not found !!!");
+          req.flash("error", "The course was not found! Such a course does not exist or is not offered at this time. Make sure the code is written correctly.");
+          res.redirect("/");
+
+        } else {
+
+          /* Having failed to figure how to treat the id's, decided to switch to strings for now. Need to change that later */
+          var courseToBeAdded = "[" + course.code + "]" + " " + course.title;
+          
+          /* Checking if this course is already in my courses list */
+          if (cr.freshOne.includes(courseToBeAdded) || cr.freshTwo.includes(courseToBeAdded) || cr.sophOne.includes(courseToBeAdded) || cr.sophTwo.includes(courseToBeAdded) || cr.junOne.includes(courseToBeAdded) || cr.junTwo.includes(courseToBeAdded) || cr.senOne.includes(courseToBeAdded) || cr.senTwo.includes(courseToBeAdded) || cr.extraOne.includes(courseToBeAdded) || cr.extraTwo.includes(courseToBeAdded) || cr.extraThree.includes(courseToBeAdded) || cr.extraFour.includes(courseToBeAdded)) {
+            
+            /* if so, inform the user and get back to where we started */
+            console.log("The course requested is not in the database.. ");
+            req.flash("error", "The course is already there");
+            res.redirect("/");
+
+          } else { //we found the course to add and confirmed that it was not added previously, so we an go on to add it to our list
+                
+                /* just saying cr.section.push(courseToBeAdded) does not work so need to check all */
+                var section = req.body.section;
+                
+                switch(section) {
+                  case "freshOne":
+                    cr.freshOne.push(courseToBeAdded);
+                    break;
+
+                  case "freshTwo":
+                    cr.freshTwo.push(courseToBeAdded);
+                    break;
+
+                  case "sophOne":
+                    cr.sophOne.push(courseToBeAdded);
+                    break;
+
+                  case "sophTwo":
+                    cr.sophTwo.push(courseToBeAdded);
+                    break;
+
+                  case "junOne":
+                    cr.junOne.push(courseToBeAdded);
+                    break;
+
+                  case "junTwo":
+                    cr.junTwo.push(courseToBeAdded);
+                    break;
+
+                  case "senOne":
+                    cr.senOne.push(courseToBeAdded);
+                    break;
+
+                  case "senTwo":
+                    cr.senTwo.push(courseToBeAdded);
+                    break;
+
+                  case "extraOne":
+                    cr.extraOne.push(courseToBeAdded);
+                    break;
+
+                  case "extraTwo":
+                    cr.extraTwo.push(courseToBeAdded);
+                    break;
+
+                  case "extraThree":
+                    cr.extraThree.push(courseToBeAdded);
+                    break;
+
+                  case "extraFour":
+                    cr.extraFour.push(courseToBeAdded);
+                    break;
+                }
+
+                /* Saving the changes in the courseroad */
+                cr.save(function(err) {
+                  if (err) {
+                    next(err);
+                    return;
+                  }
+                  req.flash("info", "Course Added");
+                  res.redirect("/");
+                });
+          }
+        }
+      });
+    }
+  });
+});
 
 module.exports = router;
