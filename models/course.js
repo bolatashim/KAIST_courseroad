@@ -2,25 +2,23 @@
 //mongoose to define schema
 var mongoose = require("mongoose");
 
-//rough schema
+//course schema
 var courseSchema = mongoose.Schema({
 
-
   code: {type: String, required: true},
-  number: {type: String, required: true},
   title: {type: String, required: true},
-  dep: {type: String, required: true},
+  depcode: {type: Number, required: true},
   type: {type: String, required: true},
-  lecture: {type: Number, required: true},
-  lab: {type: Number, required: true},
-  credit: {type: Number, required: true},
-  year: {type: Number, default: 0},
-  semester: {type: String, required: true}
+  llc: {type: String, required: true},
+  year: {type: String},
+  semester: {type: String}
 
 });
 
-//no methods yet
-
+//a method to get the course id
+courseSchema.methods.getid = function() {
+  return this._id;
+};
 
 var Course = mongoose.model("Course", courseSchema);
 
