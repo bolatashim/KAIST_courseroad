@@ -1,0 +1,76 @@
+
+.table-condensed>thead>tr>th, .table-condensed>tbody>tr>th, .table-condensed>tfoot>tr>th, .table-condensed>thead>tr>td, .table-condensed>tbody>tr>td, .table-condensed>tfoot>tr>td {
+	padding-left: 0px;
+	padding-right: 0px;
+	padding-top: 3px;
+	padding-bottom: 3px;
+
+}
+
+.ccode {
+	font-weight: bold;
+}
+
+/*Styling for the material design chips that would represent the class codes on the timetable*/
+
+.md-chip {
+  display: inline-block;
+  background: #e0e0e0;
+  padding: 0 12px;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  font-size: 13px;
+}
+
+.md-chip {
+  height: 38px;
+  width: 100%;
+  line-height: 20px;
+  margin-bottom: 2px;
+  margin-bottom: 2px;
+  margin-right: 2px;
+  margin-left: 2px;
+}
+
+.md-chip-remove {
+  display: inline-block;
+  background: #aaa;
+  border: 0;
+  height: 38px;
+  width: 16px;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  padding: 0;
+  margin: 0 0px 0 0px;
+  cursor: pointer;
+  font: inherit;
+  line-height: 0px;
+}
+
+
+.md-chip-remove:after {
+  color: #e0e0e0;
+  content: 'x';
+}
+.md-chip-remove:hover {
+  background: #999;
+}
+.md-chip-remove:active {
+  background: #777;
+}
+
+
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+
+.container {
+ min-width: 1140px;
+}
+
+.semtitle {
+	font-size: 20px;
+	font-weight: 500;
+	padding-left: 10px;
+	padding-bottom: 10px;
+}

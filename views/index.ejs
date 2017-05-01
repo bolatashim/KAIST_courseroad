@@ -2,155 +2,308 @@
 <% include _header %>
 
 
+
+
+
 <%# Starting my form here so as to be able to access anything on the page when sending a POST req %>
 <form action="/testForm" method="post"> 
 
-<%#  this is the main div for the index page  %>
-<div class="container">
+<%#  This part is for the form that populates the sections to the left. We would like it be on 3/12 of the container  %>
+<div class="col-md-3">
+	<h4>Add a course</h4>
+	<div class="form-group">
+	  <div class="input-group">
+	    <span class="input-group-addon">Semester:</span>
 
-	<%#  I would like my courses table to cover 9/12 of the container  %>
-	<div class="col-md-9">
+	    <select name="section" id="semesterSelect" class="form-control semesterPicker">
+	    	<% for (var i = 0; i < semcodes.length; i++) {%>
+				<%if (semcodes[i] == currSem) {%>
+					<option value="<%= semcodes[i]%>" selected><%= semtitles[i]%></option>	
+				<%} else {%>
+					<option value="<%= semcodes[i]%>"><%= semtitles[i]%></option>
+				<%}%>
+	    	<%}%>
+	    </select>
+	  </div>  
+	</div>
 
-		<%#  These are the different sections for adding courses  %>	
-		<h3>Freshman Year</h3>
-			<h4>Freshman Semester #1</h4>
-			<ul>
-				<% for(var i = 0; i < freshOne.length; i++) {%>
-		  			<li><%= freshOne[i] %></li>
-		  		<%}%>	
-			</ul>
-			<h4>Freshman Semester #2</h4>
-			<ul>
-				<% for(var i = 0; i < freshTwo.length; i++) {%>
-		  			<li><%= freshTwo[i] %></li>
-		  		<%}%>	
-			</ul>
-
-		<h3>Sophomore Year</h3>
-			<h4>Sophomore Semester #1</h4>
-			<ul>
-				<% for(var i = 0; i < sophOne.length; i++) {%>
-		  			<li><%= sophOne[i] %></li>
-		  		<%}%>	
-			</ul>
-			<h4>Sophomore Semester #2</h4>
-			<ul>
-				<% for(var i = 0; i < sophTwo.length; i++) {%>
-		  			<li><%= sophTwo[i] %></li>
-		  		<%}%>	
-			</ul>
-
-		<h3>Junior Year</h3>
-			<h4>Junior Semester #1</h4>
-			<ul>
-				<% for(var i = 0; i < junOne.length; i++) {%>
-		  			<li><%= junOne[i] %></li>
-		  		<%}%>	
-			</ul>
-			<h4>Junior Semester #2</h4>
-			<ul>
-				<% for(var i = 0; i < junTwo.length; i++) {%>
-		  			<li><%= junTwo[i] %></li>
-		  		<%}%>	
-			</ul>
-
-		<h3>Senior Year</h3>
-			<h4>Senior Semester #1</h4>
-			<ul>
-				<% for(var i = 0; i < senOne.length; i++) {%>
-		  			<li><%= senOne[i] %></li>
-		  		<%}%>	
-			</ul>
-			<h4>Senior Semester #2</h4>
-			<ul>
-				<% for(var i = 0; i < senTwo.length; i++) {%>
-		  			<li><%= senTwo[i] %></li>
-		  		<%}%>	
-			</ul>
-
-		<h3>Extension</h3>
-			<h4>Extra Semester #1</h4>
-			<ul>
-				<% for(var i = 0; i < extraOne.length; i++) {%>
-		  			<li><%= extraOne[i] %></li>
-		  		<%}%>	
-			</ul>
-			<h4>Extra Semester #2</h4>
-			<ul>
-				<% for(var i = 0; i < extraTwo.length; i++) {%>
-		  			<li><%= extraTwo[i] %></li>
-		  		<%}%>	
-			</ul>
-			<h4>Extra Semester #3</h4>
-			<ul>
-				<% for(var i = 0; i < extraThree.length; i++) {%>
-		  			<li><%= extraThree[i] %></li>
-		  		<%}%>	
-			</ul>
-			<h4>Extra Semester #4</h4>
-			<ul>
-				<% for(var i = 0; i < extraFour.length; i++) {%>
-		  			<li><%= extraFour[i] %></li>
-		  		<%}%>	
-			</ul>
-
-	</div> <%#  end of col-md-9 div  %>
+	<div class="form-group">
+	  <div class="input-group">
+	    <input name="code" type="text" class="form-control" id="addcourseinp" placeholder="Code or title" required autofocus>
+	    <span class="input-group-btn">
+	      <button id="addCourseButton" class="btn btn-primary btn-block" type="submit">Add</button>
+	    </span>
+	  </div>
+	</div>
+</form> <%#  the end of FORM  %>
 	
-	<%#  This part is for the form that populates the sections to the left. We would like it be on 3/12 of the container  %>
-	<div class="col-md-3">
+<div class="col-xs-12"><hr></div>
 
-		<h3>Add a course by code</h3>
-		<h4>Choose where to Insert</h4>
-		<select name="section" class="form-control">
-			<option value="freshOne">Freshman #1</option>
-			<option value="freshTwo">Freshman #2</option>
-			<option value="sophOne">Sophomore #1</option>
-			<option value="sophTwo">Sophomore #2</option>
-			<option value="junOne">Junior #1</option>
-			<option value="junTwo">Junior #2</option>
-			<option value="senOne">Senior #1</option>
-			<option value="senTwo">Senior #2</option>
-			<option value="extraOne">Extra #1</option>
-			<option value="extraTwo">Extra #2</option>
-			<option value="extraThree">Extra #3</option>
-			<option value="extraFour">Extra #4</option>
-		</select>
+<div class="requirements">  
+<h4>Requirements: </h4>
+<h5>Basic mandatory</h5>
+General Physics <br>
+General Chemistry <br>
 
-		<h4>Choose the Year and Semester</h4>
 
-		<select name="year" class="form-control">
-			<option>2010</option>
-			<option>2011</option>
-			<option>2012</option>
-			<option>2013</option>
-			<option>2014</option>
-			<option>2015</option>
-			<option>2016</option>
-			<option>2017</option>
-			<option>2018</option>
-			<option>2019</option>
-			<option>2020</option>
-			<option>2021</option>
-			<option>2022</option>
-			<option>2023</option>
-			<option>2024</option>
-		</select>
+<h5>Basic elective</h5>
+General Physics <br>
+General Chemistry <br>
+Introduction to Linear Algebra <br>
 
-		<select name="sem" class="form-control">
-		  <option>Spring</option>
-		  <option>Fall</option>
-		</select>
 
-		<h4>Course code</h4>
+</div>
+</div> <%#  end of col-md-3 div %>
 
-			<input name="code" type="text" class="form-control" placeholder="Code" required autofocus>
-			<input type="submit" value="Add" class="btn btn-primary btn-block">
 
-	</div> <%#  end of col-md-3 div %>
+
+
+<%#  this is the main div for the index page  %>
+<%#  I would like my courses table to cover 9/12 of the container  %>
+<div class="col-md-9">
+
+<%#  Freshman 1 and 2  %>
+<div class="col-md-6">
+	
+	<%# Fresh1%>
+	<!-- <form action="courseDelete" method="post"> -->
+	<div class="col-md-6">
+		<div class="freshOne">
+			<span class="semtitle">Freshman 1</span>  
+			<table class="table table-condensed">
+				<% for(var i = 0; i < freshOne.length; i++) {%>
+					<tr>
+				      <td>
+				        <div class="md-chip">
+				          <span class="ccode"><%= freshOne[i] %></span>
+				        </div>
+				      </td>
+				      <td><button type="submit" class="md-chip-remove"></button></td>
+				    </tr>
+		  		<%}%>
+			</table>			
+		</div>
+
+
+	</div><%# END Fresh1%>
+	<!-- </form> -->
+	<%# Fresh2%>
+	<div class="col-md-6">
+	<div class="freshTwo">
+		<span class="semtitle">Freshman 2</span>  
+		<table class="table table-condensed">
+			<% for(var i = 0; i < freshTwo.length; i++) {%>
+				<tr>
+			      <td>
+			        <div class="md-chip">
+			          <span class="ccode"><%= freshTwo[i] %></span>
+			        </div>
+			      </td>
+			      <td><button type="button" class="md-chip-remove"></button></td>
+			    </tr>
+	  		<%}%>
+		</table>
+	</div>
+
+	</div> <%# END Fresh1%>
+
+</div><%# END Freshman 1 and 2  %>
+
+
+
+<%# Sophomore 1 and 2%>
+<div class="col-md-6">
+	<%# Soph 1%>
+	<div class="col-md-6">
+	<div class="sophOne">
+		<span class="semtitle">Sophomore 1</span>  
+		<table class="table table-condensed">
+			<% for(var i = 0; i < sophOne.length; i++) {%>
+				<tr>
+			      <td>
+			        <div class="md-chip">
+			          <span class="ccode"><%= sophOne[i] %></span>
+			        </div>
+			      </td>
+			      <td><button type="button" class="md-chip-remove"></button></td>
+			    </tr>
+	  		<%}%>
+		</table>
+	</div>
+
+	</div><%# END Soph 1%>
+	
+	<%# Soph 2%>
+	<div class="col-md-6">
+	<div class="sophTwo">
+		<span class="semtitle">Sophomore 2</span>  
+		<table class="table table-condensed">
+			<% for(var i = 0; i < sophTwo.length; i++) {%>
+				<tr>
+			      <td>
+			        <div class="md-chip">
+			          <span class="ccode"><%= sophTwo[i] %></span>
+			        </div>
+			      </td>
+			      <td><button type="button" class="md-chip-remove"></button></td>
+			    </tr>
+	  		<%}%>
+		</table>		
+	</div>
+
+
+	</div><%# END Soph 2%>
+
+
+</div><%# END Sophomore 1 and 2%>
+
+
+
+<div class="col-xs-12"><hr></div>
+
+<%#  jun 1 and 2  %>
+<div class="col-md-6">
+	
+	<%# jun1%>
+	<div class="col-md-6">
+	<div class="junOne">
+		<span class="semtitle">Junior 1</span>  
+		<table class="table table-condensed">
+			<% for(var i = 0; i < junOne.length; i++) {%>
+				<tr>
+			      <td>
+			        <div class="md-chip">
+			          <span class="ccode"><%= junOne[i] %></span>
+			        </div>
+			      </td>
+			      <td><button type="button" class="md-chip-remove"></button></td>
+			    </tr>
+	  		<%}%>
+		</table>		
+	</div>
+
+
+	</div><%# END jun1%>
+
+	<%# jun2%>
+	<div class="col-md-6">
+	<div class="junTwo">
+		<span class="semtitle">Junior 2</span>  
+		<table class="table table-condensed">
+			<% for(var i = 0; i < junTwo.length; i++) {%>
+				<tr>
+			      <td>
+			        <div class="md-chip">
+			          <span class="ccode"><%= junTwo[i] %></span>
+			        </div>
+			      </td>
+			      <td><button type="button" class="md-chip-remove"></button></td>
+			    </tr>
+	  		<%}%>
+		</table>		
+	</div>
+
+
+	</div> <%# END junior 2%>
+
+</div><%# END junior 1 and 2  %>
+
+
+
+<%# sen 1 and 2%>
+<div class="col-md-6">
+	<%# sen 1%>
+	<div class="col-md-6">
+	<div class="senOne">
+		<span class="semtitle">Senior 1</span>  
+		<table class="table table-condensed">
+			<% for(var i = 0; i < senOne.length; i++) {%>
+				<tr>
+			      <td>
+			        <div class="md-chip">
+			          <span class="ccode"><%= senOne[i] %></span>
+			        </div>
+			      </td>
+			      <td><button type="button" class="md-chip-remove"></button></td>
+			    </tr>
+	  		<%}%>
+		</table>		
+	</div>
+
+	</div><%# END sen 1%>
+	
+	<%# sen 2%>
+	<div class="col-md-6">
+	<div class="senTwo">
+		<span class="semtitle">Senior 2</span>  
+		<table class="table table-condensed">
+			<% for(var i = 0; i < senTwo.length; i++) {%>
+				<tr>
+			      <td>
+			        <div class="md-chip">
+			          <span class="ccode"><%= senTwo[i] %></span>
+			        </div>
+			      </td>
+			      <td><button type="button" class="md-chip-remove"></button></td>
+			    </tr>
+	  		<%}%>
+		</table>		
+	</div>
+
+
+	</div><%# END Senior 2%>
+
+
+</div><%# END Senior 1 and 2%>
+
+
+<div class="col-xs-12"><hr></div>
+
+
+<div class="col-md-6">
+	<%# sen 1%>
+	<div class="col-md-6">
+	<div class="extraOne">
+		<span class="semtitle">Extra Semester</span>  
+		<table class="table table-condensed">
+			<% for(var i = 0; i < extraOne.length; i++) {%>
+				<tr>
+			      <td>
+			        <div class="md-chip">
+			          <span class="ccode"><%= extraOne[i] %></span>
+			        </div>
+			      </td>
+			      <td><button type="button" class="md-chip-remove"></button></td>
+			    </tr>
+	  		<%}%>
+		</table>		
+	</div>
+
+	</div><%# END sen 1%>
+	
+	<%# sen 2%>
+	<div class="col-md-6">
+	<div class="extra2">		
+	</div>
+
+
+	</div><%# END Senior 2%>
+
+
+</div><%# END Senior 1 and 2%>
+
+
+
+</div> <%#  end of col-md-9 div  %>
 
 </div> <%#  end of the container div  %>
 
-</form> <%#  the end of FORM  %>
+
+
+
+<script src="jquery/js/jquery-1.9.0.min.js"></script>
+<script src="jquery/js/jquery-ui-1.10.0.custom.min.js"></script>
+<script src="/javascript/cr.js"></script>
 
 
 <% include _footer%>

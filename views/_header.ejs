@@ -5,7 +5,12 @@
 
 <meta charset="utf-8">
 <title>KAIST CourseRoad</title>
-<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="jquery/css/ui-lightness/jquery-ui-1.10.0.custom.css" rel="stylesheet" />  
+    <link rel="stylesheet" type="text/css" href="/css/cr_style.css">
+
 
 </head>
 
@@ -39,7 +44,7 @@
 
 <div class="container">
 
-  <% errors.forEach(function(error) { %>a
+  <% errors.forEach(function(error) { %>
     <div class="alert alert-danger" role="alert">
       <%= error %>
     </div>

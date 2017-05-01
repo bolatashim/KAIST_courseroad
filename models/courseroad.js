@@ -19,7 +19,8 @@ var courseRoadSchema = mongoose.Schema({
 	extraOne: [String],
 	extraTwo: [String],
 	extraThree: [String],
-	extraFour: [String]
+	extraFour: [String],
+	currSem: {type: String, default: "freshOne"}
 
 	/*  
 	planOne: {
@@ -74,6 +75,55 @@ var courseRoadSchema = mongoose.Schema({
 courseRoadSchema.methods.getid = function() {
 	return this._id;
 };
+
+
+courseRoadSchema.methods.removeCourse = function(code, sem) {
+	// for (var i = 0; i < this.sem.length; i++) {
+	// 	if(this.sem[i] == code) {
+	// 		this.sem.splice(i,1);
+	// 		break;
+	// 	}
+	// }
+
+	var focus = this.freshOne;
+
+	switch(sem) {
+		case "freshTwo":
+		focus = this.freshTwo;
+		break;
+		case "sophOne":
+		focus = this.sophOne;
+		break;
+		case "sophTwo":
+		focus = this.sophTwo;
+		break;
+		case "junOne":
+		focus = this.junOne;
+		break;
+		case "junTwo":
+		focus = this.junTwo;
+		break;
+		case "senOne":
+		focus = this.senOne;
+		break;
+		case "senTwo":
+		focus = this.senTwo;
+		break;
+		case "extraOne":
+		focus = this.extraOne;
+		break;
+	}
+
+	console.log("trana delete " + sem);
+
+	for (var i = 0; i < focus.length; i++) {
+		if(focus[i] == code) {
+			focus.splice(i,1);
+			break;
+		}
+	}
+
+}
 
 var CourseRoad = mongoose.model("CourseRoad", courseRoadSchema);
 
