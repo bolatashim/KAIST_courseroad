@@ -39,17 +39,97 @@
 	
 <div class="col-xs-12"><hr></div>
 
+<h4>Requirements </h4>
+<div class="major-declared">
+	<span>Major: <%= majorTitle%></span> <br>
+	<span>Entrance year: <%= majorYear%></span>
+</div>
+<br>
 <div class="requirements">  
-<h4>Requirements: </h4>
-<h5>Basic mandatory</h5>
-General Physics <br>
-General Chemistry <br>
+
+<table class="requirements-table table table-bordered">
+	<tr>
+		<th colspan="3">
+			<span class="mini-req-title">Major Required</span> <span class="mini-credit-count">6 / 21 credits</span>
+		</th>
+	</tr>
+	<% for(var i = 1; i < majorCourses.length; i+=3)  {%>
+		<tr>
+			<%if (freshOne.includes(majorCourses[i]) || freshTwo.includes(majorCourses[i]) || sophOne.includes(majorCourses[i]) || sophTwo.includes(majorCourses[i]) || junOne.includes(majorCourses[i]) || junTwo.includes(majorCourses[i]) || senOne.includes(majorCourses[i]) || senTwo.includes(majorCourses[i]) || extraOne.includes(majorCourses[i])) {%>
+				<td><b><s><%=majorCourses[i]%></s></b></td>
+			<%} else {%>
+				<td><%=majorCourses[i]%></td>
+			<%}%>
+			<%if (freshOne.includes(majorCourses[i+1]) || freshTwo.includes(majorCourses[i+1]) || sophOne.includes(majorCourses[i+1]) || sophTwo.includes(majorCourses[i+1]) || junOne.includes(majorCourses[i+1]) || junTwo.includes(majorCourses[i+1]) || senOne.includes(majorCourses[i+1]) || senTwo.includes(majorCourses[i+1]) || extraOne.includes(majorCourses[i+1])) {%>
+				<td><b><s><%=majorCourses[i+1]%></s></b></td>
+			<%} else {%>
+				<td><%=majorCourses[i+1]%></td>
+			<%}%>
+			<%if (freshOne.includes(majorCourses[i+2]) || freshTwo.includes(majorCourses[i+2]) || sophOne.includes(majorCourses[i+2]) || sophTwo.includes(majorCourses[i+2]) || junOne.includes(majorCourses[i+2]) || junTwo.includes(majorCourses[i+2]) || senOne.includes(majorCourses[i+2]) || senTwo.includes(majorCourses[i+2]) || extraOne.includes(majorCourses[i+2])) {%>
+				<td><b><s><%=majorCourses[i+2]%></s></b></td>
+			<%} else {%>
+				<td><%=majorCourses[i+2]%></td>
+			<%}%>
+		</tr>
+	<%}%>
+</table>
+
+<table class="requirements-table table table-bordered ">
+	<tr>
+		<th colspan="3">
+			<span class="mini-req-title">Major Elective</span> <span class="mini-credit-count">6 / 21 credits</span>
+
+		</th>
+	</tr>
+	<% for(var i = 1; i < majorCourses.length; i+=3)  {%>
+		<tr>
+			<%if (freshOne.includes(majorCourses[i]) || freshTwo.includes(majorCourses[i]) || sophOne.includes(majorCourses[i]) || sophTwo.includes(majorCourses[i]) || junOne.includes(majorCourses[i]) || junTwo.includes(majorCourses[i]) || senOne.includes(majorCourses[i]) || senTwo.includes(majorCourses[i]) || extraOne.includes(majorCourses[i])) {%>
+				<td><b><s><%=majorCourses[i]%></s></b></td>
+			<%} else {%>
+				<td><%=majorCourses[i]%></td>
+			<%}%>
+			<%if (freshOne.includes(majorCourses[i+1]) || freshTwo.includes(majorCourses[i+1]) || sophOne.includes(majorCourses[i+1]) || sophTwo.includes(majorCourses[i+1]) || junOne.includes(majorCourses[i+1]) || junTwo.includes(majorCourses[i+1]) || senOne.includes(majorCourses[i+1]) || senTwo.includes(majorCourses[i+1]) || extraOne.includes(majorCourses[i+1])) {%>
+				<td><b><s><%=majorCourses[i+1]%></s></b></td>
+			<%} else {%>
+				<td><%=majorCourses[i+1]%></td>
+			<%}%>
+			<%if (freshOne.includes(majorCourses[i+2]) || freshTwo.includes(majorCourses[i+2]) || sophOne.includes(majorCourses[i+2]) || sophTwo.includes(majorCourses[i+2]) || junOne.includes(majorCourses[i+2]) || junTwo.includes(majorCourses[i+2]) || senOne.includes(majorCourses[i+2]) || senTwo.includes(majorCourses[i+2]) || extraOne.includes(majorCourses[i+2])) {%>
+				<td><b><s><%=majorCourses[i+2]%></s></b></td>
+			<%} else {%>
+				<td><%=majorCourses[i+2]%></td>
+			<%}%>
+		</tr>
+	<%}%>
+</table>
+
+<table class="requirements-table table table-bordered">
+	<tr>
+		<th colspan="3"><span class="mini-req-title">Basic Elective</span> <span class="mini-credit-count">6 / 21 credits</span>
+</th>
+	</tr>
+	<% for(var i = 1; i < majorCourses.length; i+=3)  {%>
+		<t>
+			<%if (freshOne.includes(majorCourses[i]) || freshTwo.includes(majorCourses[i]) || sophOne.includes(majorCourses[i]) || sophTwo.includes(majorCourses[i]) || junOne.includes(majorCourses[i]) || junTwo.includes(majorCourses[i]) || senOne.includes(majorCourses[i]) || senTwo.includes(majorCourses[i]) || extraOne.includes(majorCourses[i])) {%>
+				<td><b><s><%=majorCourses[i]%></s></b></td>
+			<%} else {%>
+				<td><%=majorCourses[i]%></td>
+			<%}%>
+			<%if (freshOne.includes(majorCourses[i+1]) || freshTwo.includes(majorCourses[i+1]) || sophOne.includes(majorCourses[i+1]) || sophTwo.includes(majorCourses[i+1]) || junOne.includes(majorCourses[i+1]) || junTwo.includes(majorCourses[i+1]) || senOne.includes(majorCourses[i+1]) || senTwo.includes(majorCourses[i+1]) || extraOne.includes(majorCourses[i+1])) {%>
+				<td><b><s><%=majorCourses[i+1]%></s></b></td>
+			<%} else {%>
+				<td><%=majorCourses[i+1]%></td>
+			<%}%>
+			<%if (freshOne.includes(majorCourses[i+2]) || freshTwo.includes(majorCourses[i+2]) || sophOne.includes(majorCourses[i+2]) || sophTwo.includes(majorCourses[i+2]) || junOne.includes(majorCourses[i+2]) || junTwo.includes(majorCourses[i+2]) || senOne.includes(majorCourses[i+2]) || senTwo.includes(majorCourses[i+2]) || extraOne.includes(majorCourses[i+2])) {%>
+				<td><b><s><%=majorCourses[i+2]%></s></b></td>
+			<%} else {%>
+				<td><%=majorCourses[i+2]%></td>
+			<%}%>
+		</tr>
+	<%}%>
+</table>
 
 
-<h5>Basic elective</h5>
-General Physics <br>
-General Chemistry <br>
-Introduction to Linear Algebra <br>
+<span class="total-credits"> Total: </span> <span class="credit-count">124 / 130</span>
 
 
 </div>
@@ -75,7 +155,7 @@ Introduction to Linear Algebra <br>
 					<tr>
 				      <td>
 				        <div class="md-chip">
-				          <span class="ccode"><%= freshOne[i] %></span>
+				          <span class="ccode">[<%= freshOne[i] %>]</span>
 				        </div>
 				      </td>
 				      <td><button type="submit" class="md-chip-remove"></button></td>
@@ -96,7 +176,7 @@ Introduction to Linear Algebra <br>
 				<tr>
 			      <td>
 			        <div class="md-chip">
-			          <span class="ccode"><%= freshTwo[i] %></span>
+			          <span class="ccode">[<%= freshTwo[i] %>]</span>
 			        </div>
 			      </td>
 			      <td><button type="button" class="md-chip-remove"></button></td>
@@ -122,7 +202,7 @@ Introduction to Linear Algebra <br>
 				<tr>
 			      <td>
 			        <div class="md-chip">
-			          <span class="ccode"><%= sophOne[i] %></span>
+			          <span class="ccode">[<%= sophOne[i] %>]</span>
 			        </div>
 			      </td>
 			      <td><button type="button" class="md-chip-remove"></button></td>
@@ -142,7 +222,7 @@ Introduction to Linear Algebra <br>
 				<tr>
 			      <td>
 			        <div class="md-chip">
-			          <span class="ccode"><%= sophTwo[i] %></span>
+			          <span class="ccode">[<%= sophTwo[i] %>]</span>
 			        </div>
 			      </td>
 			      <td><button type="button" class="md-chip-remove"></button></td>
@@ -173,7 +253,7 @@ Introduction to Linear Algebra <br>
 				<tr>
 			      <td>
 			        <div class="md-chip">
-			          <span class="ccode"><%= junOne[i] %></span>
+			          <span class="ccode">[<%= junOne[i] %>]</span>
 			        </div>
 			      </td>
 			      <td><button type="button" class="md-chip-remove"></button></td>
@@ -194,7 +274,7 @@ Introduction to Linear Algebra <br>
 				<tr>
 			      <td>
 			        <div class="md-chip">
-			          <span class="ccode"><%= junTwo[i] %></span>
+			          <span class="ccode">[<%= junTwo[i] %>]</span>
 			        </div>
 			      </td>
 			      <td><button type="button" class="md-chip-remove"></button></td>
@@ -221,7 +301,7 @@ Introduction to Linear Algebra <br>
 				<tr>
 			      <td>
 			        <div class="md-chip">
-			          <span class="ccode"><%= senOne[i] %></span>
+			          <span class="ccode">[<%= senOne[i] %>]</span>
 			        </div>
 			      </td>
 			      <td><button type="button" class="md-chip-remove"></button></td>
@@ -241,7 +321,7 @@ Introduction to Linear Algebra <br>
 				<tr>
 			      <td>
 			        <div class="md-chip">
-			          <span class="ccode"><%= senTwo[i] %></span>
+			          <span class="ccode">[<%= senTwo[i] %>]</span>
 			        </div>
 			      </td>
 			      <td><button type="button" class="md-chip-remove"></button></td>
@@ -270,7 +350,7 @@ Introduction to Linear Algebra <br>
 				<tr>
 			      <td>
 			        <div class="md-chip">
-			          <span class="ccode"><%= extraOne[i] %></span>
+			          <span class="ccode">[<%= extraOne[i] %>]</span>
 			        </div>
 			      </td>
 			      <td><button type="button" class="md-chip-remove"></button></td>
@@ -304,6 +384,7 @@ Introduction to Linear Algebra <br>
 <script src="jquery/js/jquery-1.9.0.min.js"></script>
 <script src="jquery/js/jquery-ui-1.10.0.custom.min.js"></script>
 <script src="/javascript/cr.js"></script>
+<script src="/javascript/courses_list.js"></script>
 
 
 <% include _footer%>

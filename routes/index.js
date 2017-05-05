@@ -4,6 +4,8 @@ var passport = require("passport");
 var User = require("../models/user");
 var CourseRoad = require("../models/courseroad");
 var Course = require("../models/course");
+var Major = require("../models/major");
+
 var router = express.Router();
 
 
@@ -77,7 +79,15 @@ router.get("/", function(req, res, next) {
 
       } else {
 
-        res.render("index", {
+        Major.findById(req.user.majorId.toString(), function(err, myMajor){
+
+          if (err) {
+            console.log("getting an error when trying to find the major by ID");
+          }
+
+
+
+          res.render("index", {
       
           freshOne: cr.freshOne,
           freshTwo: cr.freshTwo,
@@ -93,9 +103,21 @@ router.get("/", function(req, res, next) {
           extraFour: cr.extraFour,
           currSem: cr.currSem,
           semcodes: ["freshOne", "freshTwo", "sophOne", "sophTwo", "junOne", "junTwo", "senOne", "senTwo", "extraOne"],
-          semtitles: ["Freshman 1", "Freshman 2", "Sophomore 1", "Sophomore 2", "Junior 1", "Junior 2", "Senior 1", "Senior 2", "Extra"]
+          semtitles: ["Freshman 1", "Freshman 2", "Sophomore 1", "Sophomore 2", "Junior 1", "Junior 2", "Senior 1", "Senior 2", "Extra"],
+          majorCourses: myMajor.majorReq,
+          majorTitle: myMajor.title,
+          majorYear: myMajor.year
 
         }); 
+
+
+
+        });
+
+
+
+
+
 
       }
 
@@ -120,7 +142,10 @@ router.get("/", function(req, res, next) {
           extraFour: [],
           currSem: "freshOne",
           semcodes: ["freshOne", "freshTwo", "sophOne", "sophTwo", "junOne", "junTwo", "senOne", "senTwo", "extraOne"],
-          semtitles: ["Freshman 1", "Freshman 2", "Sophomore 1", "Sophomore 2", "Junior 1", "Junior 2", "Senior 1", "Senior 2", "Extra"]
+          semtitles: ["Freshman 1", "Freshman 2", "Sophomore 1", "Sophomore 2", "Junior 1", "Junior 2", "Senior 1", "Senior 2", "Extra"],
+          majorCourses: [],
+          majorTitle: "Sample title",
+          majorYear: 2015
 
 
         });
@@ -153,6 +178,9 @@ router.post("/signup", function(req, res, next) {
   var username = req.body.username;
   var password = req.body.password;
 
+
+  //need to add major thing here so one can select their major
+
   User.findOne({ username: username }, function(err, user) {
 
     if (err) { return next(err); }
@@ -165,13 +193,23 @@ router.post("/signup", function(req, res, next) {
     var newCourseRoad = new CourseRoad({});
     newCourseRoad.save();
 
-    //We save the id of our brand new courseroad in the crId field of our user
-    var newUser = new User({
-      username: username,
-      password: password,
-      crId: newCourseRoad.getid()
+    Major.findOne({"title": "cs"}, function(err, major) {
+      console.log("do I even find myself here?");
+      //We save the id of our brand new courseroad in the crId field of our user
+      
+
+    
+      var newUser = new User({
+        username: username,
+        password: password,
+        crId: newCourseRoad.getid(),
+        majorId: major.getid()
+      });
+      newUser.save(next);
+
     });
-    newUser.save(next);
+
+
 
   });
 
@@ -235,7 +273,7 @@ router.post("/testForm", ensureAuthenticated, function(req, res, next) {
         } else {
 
           /* Having failed to figure how to treat the id's, decided to switch to strings for now. Need to change that later */
-          var courseToBeAdded = "[" + course.code + "]";
+          var courseToBeAdded = course.code;
           
           /* Checking if this course is already in my courses list */
           if (cr.freshOne.includes(courseToBeAdded) || cr.freshTwo.includes(courseToBeAdded) || cr.sophOne.includes(courseToBeAdded) || cr.sophTwo.includes(courseToBeAdded) || cr.junOne.includes(courseToBeAdded) || cr.junTwo.includes(courseToBeAdded) || cr.senOne.includes(courseToBeAdded) || cr.senTwo.includes(courseToBeAdded) || cr.extraOne.includes(courseToBeAdded) || cr.extraTwo.includes(courseToBeAdded) || cr.extraThree.includes(courseToBeAdded) || cr.extraFour.includes(courseToBeAdded)) {
@@ -310,6 +348,10 @@ router.post("/testForm", ensureAuthenticated, function(req, res, next) {
                   req.flash("info", "Course Added");
                   res.redirect("/");
                 });
+
+
+
+
           }
         }
       });

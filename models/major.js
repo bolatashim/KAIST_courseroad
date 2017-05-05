@@ -4,12 +4,28 @@ var mongoose = require("mongoose");
 
 //course schema
 var majorSchema = mongoose.Schema({
+  /*
+
+  //for the sake of simplicity, I would try to just get the required major courses here for now
+  //I will try to connect the rest of the project with this model first.
   year: {type: Number, required: true},
   creditCounts: [Number],
   majorReq: [String],       // (1) 
   majorElect: [String],     // (2)          //4  credits max counted for individual studies for CS for ex.
   basicElectReq: [String],  // (3)         //for example MAS109 for CS
-  researchReq: [String]		// (4)			//need to consider substitute courses too
+  researchReq: [String],	// (4)			//need to consider substitute courses too
+  totalCredits: {type: Number, required: true}
+
+
+
+  */
+
+  //just 2 fields for now
+
+  year: {type: Number, required: true},
+  title: {type: String, required: true},
+  majorReq: [String]
+
 });
 
 //a method to get the major id
@@ -43,6 +59,32 @@ majorElect: [],
 basicElectReq: [MAS109],
 
 researchReq: [CS408]
+
+
+
+
+
+APPLIES TO ALL OF THE MAJORS
+
+General Courses :
+
+Required:
+HSS022 - Presentation discussion
+.
+.
+.
+Elective: 
+
+humanities (distinction between literature and society and something)
+
+
+Basic Courses:
+
+32 credits of typical courses
+
+
+
+
 
 
 

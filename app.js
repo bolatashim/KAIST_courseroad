@@ -14,6 +14,7 @@ var setUpPassport = require("./routes/setUpPassport");
 var index = require("./routes/index");
 var courses = require("./routes/courses");
 var courseroads = require("./routes/courseroads");
+var majors = require("./routes/majors");
 
 
 var app = express();
@@ -48,6 +49,7 @@ app.use(passport.session());
 app.use("/",index);
 app.use("/courses", courses);
 app.use("/courseroads", courseroads);
+app.use("/majors", majors);
 setUpPassport();
 
 app.listen(app.get("port"), function() {

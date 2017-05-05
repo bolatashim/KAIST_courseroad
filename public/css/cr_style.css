@@ -11,6 +11,11 @@
 	font-weight: bold;
 }
 
+
+.table th {
+  background-color: #d3e4ff;
+}
+
 /*Styling for the material design chips that would represent the class codes on the timetable*/
 
 .md-chip {
@@ -73,4 +78,36 @@
 	font-weight: 500;
 	padding-left: 10px;
 	padding-bottom: 10px;
+}
+
+
+
+.major-declared {
+  font-weight: bold;
+}
+
+
+.mini-credit-count {
+  font-size: 15px;
+  font-weight: bold;
+  position: absolute;
+  right: 20px;
+  color: blue;
+}
+
+.mini-req-title {
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.total-credits {
+
+  font-weight: bold;
+  font-size: 20px;
+
+}
+
+.credit-count {
+  font-weight: bold;
+  font-size: 30px;
 }

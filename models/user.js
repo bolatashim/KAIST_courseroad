@@ -9,6 +9,7 @@ var userSchema = mongoose.Schema({
   password: { type: String, required: true },
   createdAt: { type: Date, default: Date.now },
   crId: { type: String, required: true },
+  majorId: { type: String, required: true },
   displayName: String,
   bio: String
 });

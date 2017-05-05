@@ -31,9 +31,15 @@
 
 $( document ).ready(function() {
 
+	var cautocomp = courses_list["courses"];
+
+	
+
+
 	$(".md-chip-remove").click(function() {
 		var $row = $(this).closest("tr");
 		var $data = $row.find(".ccode").text();
+		var $ccode = $data.substring(1, $data.length - 1);
 		console.log($data);
 		var $sem = $row.parent().closest("div").attr("class");
 		console.log($sem);
@@ -46,7 +52,7 @@ $( document ).ready(function() {
 			type: 'POST',
 			dataType: "json",
 			data: {
-				code: $data,
+				code: $ccode,
 				semester: $sem
 			},
 	        dataType: 'application/json',
@@ -54,16 +60,26 @@ $( document ).ready(function() {
             success: function(data) {
                 console.log('success');
                 console.log(JSON.stringify(data));
-            }
 
+            }
+            
         });
 
-
-
+		location.reload();
 
 
 
 	});
+
+
+
+	$("#addcourseinp").autocomplete({
+		source: cautocomp
+    });
+
+	function crossCompleted (ccode) {
+
+	}
 });
 
 //   if (selectedItem) {
