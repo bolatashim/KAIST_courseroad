@@ -9,8 +9,13 @@
 
 .ccode {
 	font-weight: bold;
+  /*background-color: blue;*/
 }
 
+.ctitle {
+  display: none;
+  /*background-color: blue;*/
+}
 
 .table th {
   background-color: #d3e4ff;
@@ -20,31 +25,31 @@
 
 .md-chip {
   display: inline-block;
-  background: #e0e0e0;
+  background: blue;
   padding: 0 12px;
-  border-top-left-radius: 10px;
-  border-bottom-left-radius: 10px;
-  font-size: 13px;
-}
-
-.md-chip {
-  height: 38px;
-  width: 100%;
-  line-height: 20px;
-  margin-bottom: 2px;
+  border-top-left-radius: 16px;
+  border-bottom-left-radius: 16px;
+  /*border-radius: 16px;*/
+  font-size: 18px;
+  font-family: "Calibri","serif";
+  height: 30px;
+  width: 110%;
+  line-height: 28px;
   margin-bottom: 2px;
   margin-right: 2px;
   margin-left: 2px;
+  color: white;
 }
 
 .md-chip-remove {
   display: inline-block;
   background: #aaa;
   border: 0;
-  height: 38px;
-  width: 16px;
+  height: 30px;
+  width: 30px;
   border-top-right-radius: 10px;
   border-bottom-right-radius: 10px;
+  border-radius: 100%;
   padding: 0;
   margin: 0 0px 0 0px;
   cursor: pointer;

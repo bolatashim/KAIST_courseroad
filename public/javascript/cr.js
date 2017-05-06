@@ -31,28 +31,44 @@
 
 $( document ).ready(function() {
 
-	var cautocomp = courses_list["courses"];
+	 $('[data-toggle="tooltip"]').tooltip();
+	// /$('[data-toggle="popover"]').popover();
 
-	
+	function dispTypes() {
+
+		var $semss = ["freshOne", "freshTwo", "sophOne", "sophTwo", "junOne", "junTwo", "senOne", "senTwo", "extraOne"];
+
+		for (var i = 0; i < $semss.length; i++) {
+			var $tclass = "." + $semss[i] + " table";
+
+			$($tclass).find("tr").each(function(i) {
+				var $tds = $(this).find("td").eq(0).text();
+				console.log($tds);
+
+				var tt = ".reqmajor";
+
+				$(tt).append(
+					$("<li>").append(
+		            		$('<span>').append($tds)
+					)
+				);
+			});
+		}
+	}
 
 
 	$(".md-chip-remove").click(function() {
 		var $row = $(this).closest("tr");
 		var $data = $row.find(".ccode").text();
-		var $ccode = $data.substring(1, $data.length - 1);
-		console.log($data);
 		var $sem = $row.parent().closest("div").attr("class");
-		console.log($sem);
 
 		//though this works, I am not sure about whether this is the right way of doing this.
-
 		$row.remove();			
-
 		$.ajax({
 			type: 'POST',
 			dataType: "json",
 			data: {
-				code: $ccode,
+				code: $data,
 				semester: $sem
 			},
 	        dataType: 'application/json',
@@ -60,26 +76,17 @@ $( document ).ready(function() {
             success: function(data) {
                 console.log('success');
                 console.log(JSON.stringify(data));
-
-            }
-            
+            } 
         });
-
-		location.reload();
-
-
-
 	});
 
 
 
-	$("#addcourseinp").autocomplete({
-		source: cautocomp
-    });
 
-	function crossCompleted (ccode) {
 
-	}
+
+
+
 });
 
 //   if (selectedItem) {

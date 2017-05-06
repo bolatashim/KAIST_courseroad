@@ -7,7 +7,6 @@ var Course = require("../models/course");
 
 router.get("/", function(req, res, next) {
   console.log("Courses router is up \n");
-  //res.redirect("../");
   next();
 });
 
@@ -21,10 +20,9 @@ router.post("/add", function(req, res) {
 		title: req.body.title,
 		code: req.body.code,
 		depcode: req.body.depcode,
-		llc: req.body.llc,
+		creditnum: req.body.creditnum,
 		type: req.body.type,
-		year: req.body.year,
-		semester: req.body.semester
+		AU: req.body.AU
 	});
 	newCourse.save();
 });

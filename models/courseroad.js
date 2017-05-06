@@ -20,55 +20,8 @@ var courseRoadSchema = mongoose.Schema({
 	extraTwo: [String],
 	extraThree: [String],
 	extraFour: [String],
+	majorReqs: [String],
 	currSem: {type: String, default: "freshOne"}
-
-	/*  
-	planOne: {
-		  freshOne: [String],
-		  freshTwo: [String],
-		  sophOne: [String],
-		  sophTwo: [String],
-		  sophOne: [String],
-		  junTwo: [String],
-		  junOne: [String],
-		  senTwo: [String],
-		  senOne: [String],
-		  extraOne: [String],
-		  extraTwo: [String],
-		  extraThree: [String],
-		  extraFour: [String]
-		},
-	planTwo: {
-		  freshOne: [String],
-		  freshTwo: [String],
-		  sophOne: [String],
-		  sophTwo: [String],
-		  sophOne: [String],
-		  junTwo: [String],
-		  junOne: [String],
-		  senTwo: [String],
-		  senOne: [String],
-		  extraOne: [String],
-		  extraTwo: [String],
-		  extraThree: [String],
-		  extraFour: [String]
-		},
-	planThree: {
-		  freshOne: [String],
-		  freshTwo: [String],
-		  sophOne: [String],
-		  sophTwo: [String],
-		  sophOne: [String],
-		  junTwo: [String],
-		  junOne: [String],
-		  senTwo: [String],
-		  senOne: [String],
-		  extraOne: [String],
-		  extraTwo: [String],
-		  extraThree: [String],
-		  extraFour: [String]
-		}
-	*/
 });
 
 //A method to get the courseroad id
@@ -78,12 +31,6 @@ courseRoadSchema.methods.getid = function() {
 
 
 courseRoadSchema.methods.removeCourse = function(code, sem) {
-	// for (var i = 0; i < this.sem.length; i++) {
-	// 	if(this.sem[i] == code) {
-	// 		this.sem.splice(i,1);
-	// 		break;
-	// 	}
-	// }
 
 	var focus = this.freshOne;
 
@@ -114,15 +61,12 @@ courseRoadSchema.methods.removeCourse = function(code, sem) {
 		break;
 	}
 
-	console.log("trana delete " + sem);
-
 	for (var i = 0; i < focus.length; i++) {
-		if(focus[i] == code) {
+		if(focus[i].split("!")[0] == code) {
 			focus.splice(i,1);
 			break;
 		}
 	}
-
 }
 
 var CourseRoad = mongoose.model("CourseRoad", courseRoadSchema);

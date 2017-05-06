@@ -9,9 +9,8 @@ var courseSchema = mongoose.Schema({
   title: {type: String, required: true},
   depcode: {type: Number, required: true},
   type: {type: String, required: true},
-  llc: {type: String, required: true},
-  year: {type: String},
-  semester: {type: String}
+  creditnum: {type: Number, required: true},
+  AU: {type: Number, required: true}
 
 });
 

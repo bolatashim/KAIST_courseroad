@@ -106,7 +106,8 @@ router.get("/", function(req, res, next) {
           semtitles: ["Freshman 1", "Freshman 2", "Sophomore 1", "Sophomore 2", "Junior 1", "Junior 2", "Senior 1", "Senior 2", "Extra"],
           majorCourses: myMajor.majorReq,
           majorTitle: myMajor.title,
-          majorYear: myMajor.year
+          majorYear: myMajor.year,
+          allSems: cr.freshOne.concat(cr.freshTwo).concat(cr.sophOne).concat(cr.sophTwo).concat(cr.junOne).concat(cr.junTwo).concat(cr.senOne).concat(cr.senTwo).concat(cr.extraOne)
 
         }); 
 
@@ -127,8 +128,8 @@ router.get("/", function(req, res, next) {
         
         res.render("index", {
 
-          freshOne: [],
-          freshTwo: [],
+          freshOne: ["hi"],
+          freshTwo: ["there"],
           sophOne: [],
           sophTwo: [],
           sophOne: [],
@@ -145,7 +146,8 @@ router.get("/", function(req, res, next) {
           semtitles: ["Freshman 1", "Freshman 2", "Sophomore 1", "Sophomore 2", "Junior 1", "Junior 2", "Senior 1", "Senior 2", "Extra"],
           majorCourses: [],
           majorTitle: "Sample title",
-          majorYear: 2015
+          majorYear: 2015,
+          allSems: []
 
 
         });
@@ -273,7 +275,9 @@ router.post("/testForm", ensureAuthenticated, function(req, res, next) {
         } else {
 
           /* Having failed to figure how to treat the id's, decided to switch to strings for now. Need to change that later */
-          var courseToBeAdded = course.code;
+          //var courseToBeAdded = course.code;
+          
+          var courseToBeAdded = course.code + "!" + course.title + "!" + course.type + "!" + course.creditnum + "!" + course.AU;
           
           /* Checking if this course is already in my courses list */
           if (cr.freshOne.includes(courseToBeAdded) || cr.freshTwo.includes(courseToBeAdded) || cr.sophOne.includes(courseToBeAdded) || cr.sophTwo.includes(courseToBeAdded) || cr.junOne.includes(courseToBeAdded) || cr.junTwo.includes(courseToBeAdded) || cr.senOne.includes(courseToBeAdded) || cr.senTwo.includes(courseToBeAdded) || cr.extraOne.includes(courseToBeAdded) || cr.extraTwo.includes(courseToBeAdded) || cr.extraThree.includes(courseToBeAdded) || cr.extraFour.includes(courseToBeAdded)) {
@@ -348,10 +352,6 @@ router.post("/testForm", ensureAuthenticated, function(req, res, next) {
                   req.flash("info", "Course Added");
                   res.redirect("/");
                 });
-
-
-
-
           }
         }
       });
@@ -363,10 +363,6 @@ router.post("/testForm", ensureAuthenticated, function(req, res, next) {
 
 router.post("/courseDelete", ensureAuthenticated, function(req, res, next) {
 
-  console.log("Works this is");
-  console.log(req.body.code);
-  //console.log(req.body.semtitle.toString());
-
   CourseRoad.findById(req.user.crId.toString(), function(err, cr) {
     if (err) throw err;
     if (!cr) { /* if cr not found, say that to the user */
@@ -375,13 +371,13 @@ router.post("/courseDelete", ensureAuthenticated, function(req, res, next) {
     } else { /* found the cr can go on to check the course */
 
       cr.removeCourse(req.body.code, req.body.semester); 
-                /* Saving the changes in the courseroad */
+      /* Saving the changes in the courseroad */
       cr.save(function(err) {
         if (err) {
           next(err);
           return;
         }
-        req.flash("info", "Course Added");
+        req.flash( "Course Deleted");
         res.redirect("/");
       });
     }

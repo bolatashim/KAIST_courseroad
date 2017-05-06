@@ -4,12 +4,493 @@
 
 
 
+<%#  this is the main div for the index page  %>
+<%#  I would like my courses table to cover 9/12 of the container  %>
+<div class="col-md-8">
+
+<% var majorReqCourses = [] %>
+<% var majorElectCourses = [] %>
+<% var basicReqCourses = [] %>
+<% var basicElectCourses = [] %>
+<% var englishWriting = [] %>
+<% var generalElect = []%>
+<% var leadership = [] %>
+<% var collegeLife = [] %>
+<% var ethicsSafety = [] %>
+<% var sportsau = [] %>
+<% var other = [] %>
+
+
+<% for(var i = 0; i < allSems.length; i++) {%>
+	<%var courseinfo = allSems[i].split("!")%>
+	<%var courseitself = allSems[i] %>
+	<%var coursecode = courseinfo[0].substring(0,3)%>
+	<%var coursetype = courseinfo[2]%>
+
+	<%if(coursetype == "Major Required") {%>
+
+		<% majorReqCourses.push(courseitself) %>
+
+	<%}else if (coursetype == "Major Elective") {%>
+
+		<% majorElectCourses.push(courseitself) %>
+
+	<%}else if (coursetype == "Basic Required") {%>
+
+		<% basicReqCourses.push(courseitself) %>
+
+	<%}else if (coursetype == "Basic Elective") {%>
+
+		<% basicElectCourses.push(courseitself) %>
+
+	<%}else if (coursetype == "Humanities & Social Elective") {%>
+
+		<% generalElect.push(courseitself) %>
+
+	<%}else if (coursecode == "HSS") {%>
+		<%var num = parseInt(courseinfo[0].substring(3, 6))%>
+		<% if ((num >= 1 && num <= 6) || (num >= 22 && num <= 25)) {%>
+			<%englishWriting.push(courseitself)%>
+		<%}else if ((num >= 40 && num <= 49)) {%>
+			<%sportsau.push(courseitself)%>
+		<%}else if (num == 90 || num == 91) {%>
+			<%collegeLife.push(courseitself)%>
+		<%}else if (num >= 60 && num <= 62) {%>
+			<%leadership.push(courseitself)%>
+		<%}else if (num == 70) {%>
+			<%ethicsSafety.push(courseitself)%>
+		<%}%>
+	<%}else {%>
+			<%other.push(courseitself)%>
+	<%}%>
+<%}%>
+
+
+
+
+<%majorReqCourses = majorReqCourses.sort()%>
+<%majorElectCourses = majorElectCourses.sort()%>
+<%basicReqCourses = basicReqCourses.sort()%>
+<%basicElectCourses = basicElectCourses.sort()%>
+<%englishWriting = englishWriting.sort()%>
+
+
+
+
+
+<%#  Freshman 1 and 2  %>
+<div class="col-md-6">
+	
+	<%# Fresh1%>
+	<div class="col-md-6">
+		<div class="freshOne">
+			<span class="semtitle">Freshman 1</span>  
+			<table class="table table-condensed">
+				<% for(var i = 0; i < freshOne.length; i++) {%>
+					<tr>
+				      <td>
+				        <div class="md-chip">
+					      <%var courseinfo = freshOne[i].split("!")%>
+				          <span class="ccode"><%= courseinfo[0] %></span>
+				          <span class="ctitle"><%= courseinfo[1] %></span>
+				        </div>
+				      </td>
+				      <td><button type="submit" class="md-chip-remove"></button></td>
+				    </tr>
+		  		<%}%>
+			</table>			
+		</div>
+
+
+	</div><%# END Fresh1%>
+	<%# Fresh2%>
+	<div class="col-md-6">
+	<div class="freshTwo">
+		<span class="semtitle">Freshman 2</span>  
+		<table class="table table-condensed">
+			<% for(var i = 0; i < freshTwo.length; i++) {%>
+				<tr>
+			      <td>
+			        <div class="md-chip">
+			          <%var courseinfo = freshTwo[i].split("!")%>
+				          <span class="ccode"><%= courseinfo[0] %></span>
+				          <span class="ctitle"><%= courseinfo[1] %></span>
+			        </div>
+			      </td>
+			      <td><button type="button" class="md-chip-remove"></button></td>
+			    </tr>
+	  		<%}%>
+		</table>
+	</div>
+
+	</div> <%# END Fresh1%>
+
+</div><%# END Freshman 1 and 2  %>
+
+
+
+<%# Sophomore 1 and 2%>
+<div class="col-md-6">
+	<%# Soph 1%>
+	<div class="col-md-6">
+	<div class="sophOne">
+		<span class="semtitle">Sophomore 1</span>  
+		<table class="table table-condensed">
+			<% for(var i = 0; i < sophOne.length; i++) {%>
+				<tr>
+			      <td>
+			        <div class="md-chip">
+			          <%var courseinfo = sophOne[i].split("!")%>
+				          <span class="ccode"><%= courseinfo[0] %></span>
+				          <span class="ctitle"><%= courseinfo[1] %></span>
+			        </div>
+			      </td>
+			      <td><button type="button" class="md-chip-remove"></button></td>
+			    </tr>
+	  		<%}%>
+		</table>
+	</div>
+
+	</div><%# END Soph 1%>
+	
+	<%# Soph 2%>
+	<div class="col-md-6">
+	<div class="sophTwo">
+		<span class="semtitle">Sophomore 2</span>  
+		<table class="table table-condensed">
+			<% for(var i = 0; i < sophTwo.length; i++) {%>
+				<tr>
+			      <td>
+			        <div class="md-chip">
+			          <%var courseinfo = sophTwo[i].split("!")%>
+				          <span class="ccode"><%= courseinfo[0] %></span>
+				          <span class="ctitle"><%= courseinfo[1] %></span>
+			        </div>
+			      </td>
+			      <td><button type="button" class="md-chip-remove"></button></td>
+			    </tr>
+	  		<%}%>
+		</table>		
+	</div>
+
+
+	</div><%# END Soph 2%>
+
+
+</div><%# END Sophomore 1 and 2%>
+
+
+
+<div class="col-xs-12"><hr></div>
+
+<%#  jun 1 and 2  %>
+<div class="col-md-6">
+	
+	<%# jun1%>
+	<div class="col-md-6">
+	<div class="junOne">
+		<span class="semtitle">Junior 1</span>  
+		<table class="table table-condensed">
+			<% for(var i = 0; i < junOne.length; i++) {%>
+				<tr>
+			      <td>
+			        <div class="md-chip">
+			          <%var courseinfo = junOne[i].split("!")%>
+				          <span class="ccode"><%= courseinfo[0] %></span>
+				          <span class="ctitle"><%= courseinfo[1] %></span>
+			        </div>
+			      </td>
+			      <td><button type="button" class="md-chip-remove"></button></td>
+			    </tr>
+	  		<%}%>
+		</table>		
+	</div>
+
+
+	</div><%# END jun1%>
+
+	<%# jun2%>
+	<div class="col-md-6">
+	<div class="junTwo">
+		<span class="semtitle">Junior 2</span>  
+		<table class="table table-condensed">
+			<% for(var i = 0; i < junTwo.length; i++) {%>
+				<tr>
+			      <td>
+			        <div class="md-chip">
+			          <% var courseinfo = junTwo[i].split("!") %>
+				          <span class="ccode"><%= courseinfo[0] %></span>
+				          <span class="ctitle"><%= courseinfo[1] %></span>
+			        </div>
+			      </td>
+			      <td><button type="button" class="md-chip-remove"></button></td>
+			    </tr>
+	  		<%}%>
+		</table>		
+	</div>
+
+
+	</div> <%# END junior 2%>
+
+</div><%# END junior 1 and 2  %>
+
+
+
+<%# sen 1 and 2%>
+<div class="col-md-6">
+	<%# sen 1%>
+	<div class="col-md-6">
+	<div class="senOne">
+		<span class="semtitle">Senior 1</span>  
+		<table class="table table-condensed">
+			<% for(var i = 0; i < senOne.length; i++) {%>
+				<tr>
+			      <td>
+			        <div class="md-chip">
+			          <%var courseinfo = senOne[i].split("!")%>
+				          <span class="ccode"><%= courseinfo[0] %></span>
+				          <span class="ctitle"><%= courseinfo[1] %></span>
+			        </div>
+			      </td>
+			      <td><button type="button" class="md-chip-remove"></button></td>
+			    </tr>
+	  		<%}%>
+		</table>		
+	</div>
+
+	</div><%# END sen 1%>
+	
+	<%# sen 2%>
+	<div class="col-md-6">
+	<div class="senTwo">
+		<span class="semtitle">Senior 2</span>  
+		<table class="table table-condensed">
+			<% for(var i = 0; i < senTwo.length; i++) {%>
+				<tr>
+			      <td>
+			        <div class="md-chip">
+			          <%var courseinfo = senTwo[i].split("!")%>
+				          <span class="ccode"><%= courseinfo[0] %></span>
+				          <span class="ctitle"><%= courseinfo[1] %></span>
+			        </div>
+			      </td>
+			      <td><button type="button" class="md-chip-remove"></button></td>
+			    </tr>
+	  		<%}%>
+		</table>		
+	</div>
+
+
+	</div><%# END Senior 2%>
+
+
+</div><%# END Senior 1 and 2%>
+
+
+<div class="col-xs-12"><hr></div>
+
+
+<div class="col-md-6">
+	<%# extra 1%>
+	<div class="col-md-6">
+	<div class="extraOne">
+		<span class="semtitle">Extra Semester</span>  
+		<table class="table table-condensed">
+			<% for(var i = 0; i < extraOne.length; i++) {%>
+				<tr>
+			      <td>
+			        <div class="md-chip">
+			          <%var courseinfo = extraOne[i].split("!")%>
+				          <span class="ccode"><%= courseinfo[0] %></span>
+				          <span class="ctitle"><%= courseinfo[1] %></span>
+			        </div>
+			      </td>
+			      <td><button type="button" class="md-chip-remove"></button></td>
+			    </tr>
+	  		<%}%>
+		</table>		
+	</div>
+
+	</div><%# END extra 1%>
+	
+	<%# sen 2%>
+	<div class="col-md-6">
+	<div class="extra2">		
+	</div>
+	</div><%# END extra 2%>
+
+
+</div><%# END extra 1 and 2%>
+
+
+
+<ul>
+
+
+
+
+
+
+
+
+<div class="col-xs-12"><hr></div>
+
+
+
+
+
+<div class="col-md-9">
+	<h4>Major Required Courses</h4>
+	<% var mrc1 = parseFloat("0")%>
+	<% var mrc2 = parseFloat("0")%>
+	<% for(var i = 0; i < majorReqCourses.length; i++) {%>
+		<% var info = majorReqCourses[i].split("!")%>
+		<% mrc1 += parseFloat(info[3])%>
+		<% mrc2 += parseFloat(info[4])%>
+		<span><%= info[0]%></span>  <span><%=info[1]%></span><br>
+	<%}%>
+	<h5>Total credit: <%=mrc1%> _ Total AU: <%=mrc2%></h5><br>
+
+
+
+	<h4>Major Elective Courses</h4>
+	<% var mrc3 = parseFloat("0")%>
+	<% var mrc4 = parseFloat("0")%>
+	<% for(var i = 0; i < majorElectCourses.length; i++) {%>
+		<% var info = majorElectCourses[i].split("!")%>
+		<% mrc3 += parseFloat(info[3])%>
+		<% mrc4 += parseFloat(info[4])%>
+		<span><%= info[0]%></span>  <span><%=info[1]%></span><br>
+	<%}%>
+	<h5>Total credit: <%=mrc3%> _ Total AU: <%=mrc4%></h5><br>
+
+
+
+	<h4>Basic Required Courses</h4>
+	<% var mrc5 = parseFloat("0")%>
+	<% var mrc6 = parseFloat("0")%>
+	<% for(var i = 0; i < basicReqCourses.length; i++) {%>
+		<% var info = basicReqCourses[i].split("!")%>
+		<% mrc5 += parseFloat(info[3])%>
+		<% mrc6 += parseFloat(info[4])%>
+		<span><%= info[0]%></span>  <span><%=info[1]%></span><br>
+	<%}%>
+	<h5>Total credit: <%=mrc5%> _ Total AU: <%=mrc6%></h5><br>
+
+
+
+
+	<h4>Basic Elective Courses</h4>
+	<% var mrc7 = parseFloat("0")%>
+	<% var mrc8 = parseFloat("0")%>
+	<% for(var i = 0; i < basicElectCourses.length; i++) {%>
+		<% var info = basicElectCourses[i].split("!")%>
+		<% mrc7 += parseFloat(info[3])%>
+		<% mrc8 += parseFloat(info[4])%>
+		<span><%= info[0]%></span>  <span><%=info[1]%></span><br>
+	<%}%>
+	<h5>Total credit: <%=mrc7%> _ Total AU: <%=mrc8%></h5><br>
+
+
+
+	<h4>Major Required Courses</h4>
+	<% var mrc9 = parseFloat("0")%>
+	<% var mrc10 = parseFloat("0")%>
+	<% for(var i = 0; i < englishWriting.length; i++) {%>
+		<% var info = englishWriting[i].split("!")%>
+		<% mrc9 += parseFloat(info[3])%>
+		<% mrc10 += parseFloat(info[4])%>
+		<span><%= info[0]%></span>  <span><%=info[1]%></span><br>
+	<%}%>
+	<h5>Total credit: <%=mrc9%> _ Total AU: <%=mrc10%></h5><br>
+
+
+	<h4>General Elective Courses</h4>
+	<% var mrc11 = parseFloat("0")%>
+	<% var mrc12 = parseFloat("0")%>
+	<% for(var i = 0; i < generalElect.length; i++) {%>
+		<% var info = generalElect[i].split("!")%>
+		<% mrc11 += parseFloat(info[3])%>
+		<% mrc12 += parseFloat(info[4])%>
+		<span><%= info[0]%></span>  <span><%=info[1]%></span><br>
+	<%}%>
+	<h5>Total credit: <%=mrc11%> _ Total AU: <%=mrc12%></h5><br>
+
+
+	<h4>Leadership Courses</h4>
+	<% var mrc13 = parseFloat("0")%>
+	<% var mrc14 = parseFloat("0")%>
+	<% for(var i = 0; i < leadership.length; i++) {%>
+		<% var info = leadership[i].split("!")%>
+		<% mrc13 += parseFloat(info[3])%>
+		<% mrc14 += parseFloat(info[4])%>
+		<span><%= info[0]%></span>  <span><%=info[1]%></span><br>
+	<%}%>
+	<h5>Total credit: <%=mrc13%> _ Total AU: <%=mrc14%></h5><br>
+	
+
+	<h4>collegeLife Courses</h4>
+	<% var mrc15 = parseFloat("0")%>
+	<% var mrc16 = parseFloat("0")%>
+	<% for(var i = 0; i < collegeLife.length; i++) {%>
+		<% var info = collegeLife[i].split("!")%>
+		<% mrc15 += parseFloat(info[3])%>
+		<% mrc16 += parseFloat(info[4])%>
+		<span><%= info[0]%></span>  <span><%=info[1]%></span><br>
+	<%}%>
+	<h5>Total credit: <%=mrc15%> _ Total AU: <%=mrc16%></h5><br>
+
+	<h4>ethicsSafety Courses</h4>
+	<% var mrc17 = parseFloat("0")%>
+	<% var mrc18 = parseFloat("0")%>
+	<% for(var i = 0; i < ethicsSafety.length; i++) {%>
+		<% var info = ethicsSafety[i].split("!")%>
+		<% mrc17 += parseFloat(info[3])%>
+		<% mrc18 += parseFloat(info[4])%>
+		<span><%= info[0]%></span>  <span><%=info[1]%></span><br>
+	<%}%>
+	<h5>Total credit: <%=mrc17%> _ Total AU: <%=mrc18%></h5><br>
+
+		<h4>sportsau Courses</h4>
+	<% var mrc19 = parseFloat("0")%>
+	<% var mrc20 = parseFloat("0")%>
+	<% for(var i = 0; i < sportsau.length; i++) {%>
+		<% var info = sportsau[i].split("!")%>
+		<% mrc19 += parseFloat(info[3])%>
+		<% mrc20 += parseFloat(info[4])%>
+		<span><%= info[0]%></span>  <span><%=info[1]%></span><br>
+	<%}%>
+	<h5>Total credit: <%=mrc19%> _ Total AU: <%=mrc20%></h5><br>
+
+		<h4>Other Courses</h4>
+	<% var mrc21 = parseFloat("0")%>
+	<% var mrc22 = parseFloat("0")%>
+	<% for(var i = 0; i < other.length; i++) {%>
+		<% var info = other[i].split("!")%>
+		<% mrc21 += parseFloat(info[3])%>
+		<% mrc22 += parseFloat(info[4])%>
+		<span><%= info[0]%></span>  <span><%=info[1]%></span><br>
+	<%}%>
+	<h5>Total credit: <%=mrc21%> _ Total AU: <%=mrc22%></h5><br>
+
+	<% var grandc = mrc1 + mrc3 + mrc5 + mrc7 + mrc9 + mrc11 + mrc13 + mrc15 + mrc17 + mrc19 + mrc21%>
+	<% var grandau = mrc2 + mrc4 + mrc6 + mrc8 + mrc10 + mrc12 + mrc14 + mrc16 + mrc18 + mrc20 + mrc22%>
+	<h3>Grand Total Credits: <%=grandc%></h3>
+	<h3>Grand Total AU: <%=grandau%></h3>
+</div>
+
+
+
+
+</div> <%#  end of col-md-9 div  %>
+
 
 <%# Starting my form here so as to be able to access anything on the page when sending a POST req %>
 <form action="/testForm" method="post"> 
+	
 
 <%#  This part is for the form that populates the sections to the left. We would like it be on 3/12 of the container  %>
-<div class="col-md-3">
+<div class="col-md-4">
 	<h4>Add a course</h4>
 	<div class="form-group">
 	  <div class="input-group">
@@ -137,252 +618,13 @@
 
 
 
-
-<%#  this is the main div for the index page  %>
-<%#  I would like my courses table to cover 9/12 of the container  %>
-<div class="col-md-9">
-
-<%#  Freshman 1 and 2  %>
-<div class="col-md-6">
-	
-	<%# Fresh1%>
-	<!-- <form action="courseDelete" method="post"> -->
-	<div class="col-md-6">
-		<div class="freshOne">
-			<span class="semtitle">Freshman 1</span>  
-			<table class="table table-condensed">
-				<% for(var i = 0; i < freshOne.length; i++) {%>
-					<tr>
-				      <td>
-				        <div class="md-chip">
-				          <span class="ccode">[<%= freshOne[i] %>]</span>
-				        </div>
-				      </td>
-				      <td><button type="submit" class="md-chip-remove"></button></td>
-				    </tr>
-		  		<%}%>
-			</table>			
-		</div>
-
-
-	</div><%# END Fresh1%>
-	<!-- </form> -->
-	<%# Fresh2%>
-	<div class="col-md-6">
-	<div class="freshTwo">
-		<span class="semtitle">Freshman 2</span>  
-		<table class="table table-condensed">
-			<% for(var i = 0; i < freshTwo.length; i++) {%>
-				<tr>
-			      <td>
-			        <div class="md-chip">
-			          <span class="ccode">[<%= freshTwo[i] %>]</span>
-			        </div>
-			      </td>
-			      <td><button type="button" class="md-chip-remove"></button></td>
-			    </tr>
-	  		<%}%>
-		</table>
-	</div>
-
-	</div> <%# END Fresh1%>
-
-</div><%# END Freshman 1 and 2  %>
-
-
-
-<%# Sophomore 1 and 2%>
-<div class="col-md-6">
-	<%# Soph 1%>
-	<div class="col-md-6">
-	<div class="sophOne">
-		<span class="semtitle">Sophomore 1</span>  
-		<table class="table table-condensed">
-			<% for(var i = 0; i < sophOne.length; i++) {%>
-				<tr>
-			      <td>
-			        <div class="md-chip">
-			          <span class="ccode">[<%= sophOne[i] %>]</span>
-			        </div>
-			      </td>
-			      <td><button type="button" class="md-chip-remove"></button></td>
-			    </tr>
-	  		<%}%>
-		</table>
-	</div>
-
-	</div><%# END Soph 1%>
-	
-	<%# Soph 2%>
-	<div class="col-md-6">
-	<div class="sophTwo">
-		<span class="semtitle">Sophomore 2</span>  
-		<table class="table table-condensed">
-			<% for(var i = 0; i < sophTwo.length; i++) {%>
-				<tr>
-			      <td>
-			        <div class="md-chip">
-			          <span class="ccode">[<%= sophTwo[i] %>]</span>
-			        </div>
-			      </td>
-			      <td><button type="button" class="md-chip-remove"></button></td>
-			    </tr>
-	  		<%}%>
-		</table>		
-	</div>
-
-
-	</div><%# END Soph 2%>
-
-
-</div><%# END Sophomore 1 and 2%>
-
-
-
-<div class="col-xs-12"><hr></div>
-
-<%#  jun 1 and 2  %>
-<div class="col-md-6">
-	
-	<%# jun1%>
-	<div class="col-md-6">
-	<div class="junOne">
-		<span class="semtitle">Junior 1</span>  
-		<table class="table table-condensed">
-			<% for(var i = 0; i < junOne.length; i++) {%>
-				<tr>
-			      <td>
-			        <div class="md-chip">
-			          <span class="ccode">[<%= junOne[i] %>]</span>
-			        </div>
-			      </td>
-			      <td><button type="button" class="md-chip-remove"></button></td>
-			    </tr>
-	  		<%}%>
-		</table>		
-	</div>
-
-
-	</div><%# END jun1%>
-
-	<%# jun2%>
-	<div class="col-md-6">
-	<div class="junTwo">
-		<span class="semtitle">Junior 2</span>  
-		<table class="table table-condensed">
-			<% for(var i = 0; i < junTwo.length; i++) {%>
-				<tr>
-			      <td>
-			        <div class="md-chip">
-			          <span class="ccode">[<%= junTwo[i] %>]</span>
-			        </div>
-			      </td>
-			      <td><button type="button" class="md-chip-remove"></button></td>
-			    </tr>
-	  		<%}%>
-		</table>		
-	</div>
-
-
-	</div> <%# END junior 2%>
-
-</div><%# END junior 1 and 2  %>
-
-
-
-<%# sen 1 and 2%>
-<div class="col-md-6">
-	<%# sen 1%>
-	<div class="col-md-6">
-	<div class="senOne">
-		<span class="semtitle">Senior 1</span>  
-		<table class="table table-condensed">
-			<% for(var i = 0; i < senOne.length; i++) {%>
-				<tr>
-			      <td>
-			        <div class="md-chip">
-			          <span class="ccode">[<%= senOne[i] %>]</span>
-			        </div>
-			      </td>
-			      <td><button type="button" class="md-chip-remove"></button></td>
-			    </tr>
-	  		<%}%>
-		</table>		
-	</div>
-
-	</div><%# END sen 1%>
-	
-	<%# sen 2%>
-	<div class="col-md-6">
-	<div class="senTwo">
-		<span class="semtitle">Senior 2</span>  
-		<table class="table table-condensed">
-			<% for(var i = 0; i < senTwo.length; i++) {%>
-				<tr>
-			      <td>
-			        <div class="md-chip">
-			          <span class="ccode">[<%= senTwo[i] %>]</span>
-			        </div>
-			      </td>
-			      <td><button type="button" class="md-chip-remove"></button></td>
-			    </tr>
-	  		<%}%>
-		</table>		
-	</div>
-
-
-	</div><%# END Senior 2%>
-
-
-</div><%# END Senior 1 and 2%>
-
-
-<div class="col-xs-12"><hr></div>
-
-
-<div class="col-md-6">
-	<%# sen 1%>
-	<div class="col-md-6">
-	<div class="extraOne">
-		<span class="semtitle">Extra Semester</span>  
-		<table class="table table-condensed">
-			<% for(var i = 0; i < extraOne.length; i++) {%>
-				<tr>
-			      <td>
-			        <div class="md-chip">
-			          <span class="ccode">[<%= extraOne[i] %>]</span>
-			        </div>
-			      </td>
-			      <td><button type="button" class="md-chip-remove"></button></td>
-			    </tr>
-	  		<%}%>
-		</table>		
-	</div>
-
-	</div><%# END sen 1%>
-	
-	<%# sen 2%>
-	<div class="col-md-6">
-	<div class="extra2">		
-	</div>
-
-
-	</div><%# END Senior 2%>
-
-
-</div><%# END Senior 1 and 2%>
-
-
-
-</div> <%#  end of col-md-9 div  %>
-
 </div> <%#  end of the container div  %>
 
 
 
-
-<script src="jquery/js/jquery-1.9.0.min.js"></script>
-<script src="jquery/js/jquery-ui-1.10.0.custom.min.js"></script>
+<script src="/bootstrap/tether.min.js"></script>
+<script src="/jquery/js/jquery-1.9.0.min.js"></script>
+<script src="/jquery/js/jquery-ui-1.10.0.custom.min.js"></script>
 <script src="/javascript/cr.js"></script>
 <script src="/javascript/courses_list.js"></script>
 
